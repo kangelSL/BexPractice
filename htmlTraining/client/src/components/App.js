@@ -1,39 +1,30 @@
 import React from "react";
-import OrderFormComponent from "../components/orders/OrderFormComponent";
-import OrderListComponent from "../components/orders/OrderListComponent";
-import AccountDropdownComponent from "../components/account/AccountDropdownComponent";
-import OrderListRecent from "../container/orders/OrderListRecent";
+import HeaderLayout from "./layout/HeaderLayout";
+import ColumnLayout from "./layout/ColumnLayout";
+
+import SidebarColumnLayout from "./layout/SidebarColumnLayout";
+import LeftColumnLayout from "./layout/LeftColumnLayout";
 
 function App() {
-    return (
-        <div className="App">
-            <div className="container-fluid">
-                <div className="row">
-                    <div
-                        className="col-sm-4"
-                        style={{ paddingTop: 15 }}
-                        id="column1"
-                    >
-                        <h1>Order Form</h1>
-                        <AccountDropdownComponent />
-                        <OrderFormComponent />
+  return (
+    <div className="App">
+      <div className="container-fluid">
+        <HeaderLayout
+          title="Bitcoin Exchange | BEX"
+          style="header header-small"
+        />
+        <HeaderLayout title="Trading" style="header header-right" />
+      </div>
+      <div>
+        <SidebarColumnLayout header="BTC-GBP" style="column column-sidebar" />
+        <LeftColumnLayout header="Order Books" style="column column-left" />
 
-                        <h1>Recent Trades</h1>
-                        <OrderListRecent />
-                    </div>
-
-                    <div
-                        className="col-sm-8"
-                        style={{ paddingTop: 15 }}
-                        id="column2"
-                    >
-                        <h1>Order Books</h1>
-                        <OrderListComponent />
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
+        <ColumnLayout header="Price Charts" style="column column-central" />
+        <ColumnLayout header="Trade History" style="column column-right" />
+      </div>
+      <div />
+    </div>
+  );
 }
 
 export default App;

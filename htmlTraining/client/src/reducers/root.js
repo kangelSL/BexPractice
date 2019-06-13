@@ -1,5 +1,5 @@
-import {combineReducers} from 'redux';
-import { reducer as example } from './ducks/example';
+import { combineReducers } from "redux";
+import { reducer } from "./index";
 
-const rootReducer = combineReducers({ example });
+const rootReducer = combineReducers({ reducer });
 export default rootReducer;

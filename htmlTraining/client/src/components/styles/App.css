@@ -1,0 +1,37 @@
+.header {
+  display: inline-block;
+  height: 100px;
+  border: 1px solid black;
+}
+
+.header-small {
+  width: 24%;
+}
+
+.header-right {
+  min-width: 74.8%;
+}
+
+.column {
+  display: inline-block;
+  vertical-align: top;
+  height: 100px;
+  border: 1px solid black;
+  height: 700px;
+}
+
+.column-sidebar {
+  width: 24%;
+}
+
+.column-left {
+  width: 12.5%;
+}
+
+.column-right {
+  width: 12%;
+}
+
+.column-central {
+  width: 50%;
+}
