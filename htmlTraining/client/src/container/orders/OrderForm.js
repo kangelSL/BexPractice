@@ -25,6 +25,8 @@ class ConnectedForm extends Component {
   }
 
   handleChange(event) {
+    console.log(event.target.id);
+    console.log(event.target.value);
     this.setState({ [event.target.id]: event.target.value });
   }
 
@@ -50,25 +52,35 @@ class ConnectedForm extends Component {
 
   render() {
     return (
-      <Form>
-        <FormGroup controlId="formBasicEmail">
+      <Form onSubmit={this.handleSubmit}>
+        <FormGroup>
           <FormControl
             type="quantity"
+            id="quantity"
             placeholder="Enter quantity"
             className="formElement"
+            value={this.quantity}
+            onChange={this.handleChange}
           />
           <FormControl
             type="price"
+            id="price"
             placeholder="Enter price"
             className="formElement"
+            value={this.price}
+            onChange={this.handleChange}
           />
-          <select className="formElement">
+          <select
+            className="formElement"
+            value={this.action}
+            onChange={this.handleChange}
+          >
             <option value="1">Buy</option>
             <option value="2">Sell</option>
           </select>
         </FormGroup>
 
-        <Button variant="secondary" type="submit">
+        <Button className="buttonStyling" type="submit">
           Submit
         </Button>
       </Form>

@@ -37,7 +37,7 @@ class OrderListAggregated extends Component {
     return (
       <div>
         <p>Buy</p>
-        <table className="table table-dark">
+        <table className="tableRowStyling">
           <thead>
             <tr>
               <th scope="col">Price</th>
@@ -48,7 +48,7 @@ class OrderListAggregated extends Component {
         </table>
 
         <p>Sell</p>
-        <table className="table table-dark">
+        <table className="tableRowStyling">
           <thead>
             <tr>
               <th scope="col">Price</th>

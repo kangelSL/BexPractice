@@ -26,13 +26,15 @@ export function getAccounts() {
 }
 
 export function postData(payload) {
+  console.log("allCorrectHere");
+  console.log(payload);
+
   return dispatch => {
     axios
-      .post("http://localhost:3000/post", {
+      .post("http://localhost:3000/postOrder", {
         payload
       })
       .then(function(response) {
-        console.log(response);
         dispatch({ type: "DATA_POSTED", payload: response });
       })
       .catch(function(response) {

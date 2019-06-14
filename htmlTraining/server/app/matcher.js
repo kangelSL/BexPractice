@@ -1,4 +1,4 @@
-let data = require("../data/index");
+let Orders = require("../data/Order");
 
 let ACTION_TYPES = {
   BUY: 1,
@@ -14,7 +14,7 @@ function MatcherApi(order) {
     acceptablePricePerCoin: +order.price / +order.quantity
   };
 
-  let currentOrders = data().orders;
+  let currentOrders = new Orders();
 
   let result = findTrade(findOrder, currentOrders);
 

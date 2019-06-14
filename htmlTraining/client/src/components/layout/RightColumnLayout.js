@@ -1,6 +1,7 @@
 import "../styles/App.css";
 import React, { Component } from "react";
 import OrderListRecent from "../../container/orders/OrderListRecent";
+import OrderListPrivate from "../../container/orders/OrderListPrivate";
 
 class RightColumnLayout extends Component {
   render() {
@@ -8,6 +9,7 @@ class RightColumnLayout extends Component {
       <div>
         <p>{this.props.header}</p>
         <OrderListRecent />
+        <OrderListPrivate />
       </div>
     );
   }

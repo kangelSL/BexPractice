@@ -9,10 +9,18 @@ class OrderList extends Component {
     this.props.getOrders();
   }
 
+  getTruncatedOrderBook() {
+    if (typeof this.props.orders !== "undefined") {
+      return this.props.orders.slice(1).slice(-20);
+    } else {
+      return {};
+    }
+  }
+
   render() {
     return (
       <div>
-        <OrderTableElement orders={this.props.orders} />
+        <OrderTableElement orders={this.getTruncatedOrderBook()} />
       </div>
     );
   }

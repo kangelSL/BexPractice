@@ -41,3 +41,15 @@
   margin-left: 100px;
   margin-bottom: 5px;
 }
+
+.buttonStyling {
+  background-color: white !important;
+  margin-left: 150px;
+}
+
+.tableRowStyling {
+  color: white;
+  font-size: 12px;
+  width: 190px;
+  margin-left: 100px;
+}
