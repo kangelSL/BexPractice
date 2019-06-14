@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getOrders } from "../actions/index";
-import OrderTable from "../container/OrderTable";
+import OrderTableElement from "../components/elements/OrderTableElement";
 
 class OrderList extends Component {
   componentDidMount() {
@@ -12,7 +12,7 @@ class OrderList extends Component {
   render() {
     return (
       <div>
-        <OrderTable orders={this.props.orders} />
+        <OrderTableElement orders={this.props.orders} />
       </div>
     );
   }

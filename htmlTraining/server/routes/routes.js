@@ -1,5 +1,6 @@
 var MatcherApi = require("../app/matcher");
-var GetData = require("../data/index");
+var Accounts = require("../data/Account");
+var Orders = require("../data/Order");
 
 let appRouter = function(app) {
   //Override CORS framework
@@ -11,8 +12,13 @@ let appRouter = function(app) {
     next();
   });
 
-  app.get("/get", function(request, response) {
-    let data = new GetData();
+  app.get("/getOrders", function(request, response) {
+    let data = new Orders();
+    response.status(200).send(data);
+  });
+
+  app.get("/getAccounts", function(request, response) {
+    let data = new Accounts();
     response.status(200).send(data);
   });
 

@@ -10,7 +10,7 @@ export function getOrders() {
     return fetch("http://localhost:3000/getOrders")
       .then(response => response.json())
       .then(json => {
-        dispatch({ type: "DATA_LOADED", payload: json });
+        dispatch({ type: "ORDERS_LOADED", payload: json });
       });
   };
 }
@@ -20,7 +20,7 @@ export function getAccounts() {
     return fetch("http://localhost:3000/getAccounts")
       .then(response => response.json())
       .then(json => {
-        dispatch({ type: "DATA_LOADED", payload: json });
+        dispatch({ type: "ACCOUNTS_LOADED", payload: json });
       });
   };
 }
