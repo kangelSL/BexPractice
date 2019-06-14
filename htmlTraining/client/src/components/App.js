@@ -1,28 +1,40 @@
 import React from "react";
 import HeaderLayout from "./layout/HeaderLayout";
-import ColumnLayout from "./layout/ColumnLayout";
-
 import SidebarColumnLayout from "./layout/SidebarColumnLayout";
 import LeftColumnLayout from "./layout/LeftColumnLayout";
+import CentralColumnLayout from "./layout/CentralColumnLayout";
+import RightColumnLayout from "./layout/RightColumnLayout";
+import "bootstrap/dist/css/bootstrap.min.css";
+import $ from "jquery";
+import Popper from "popper.js";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 
 function App() {
   return (
     <div className="App">
       <div className="container-fluid">
-        <HeaderLayout
-          title="Bitcoin Exchange | BEX"
-          style="header header-small"
-        />
-        <HeaderLayout title="Trading" style="header header-right" />
-      </div>
-      <div>
-        <SidebarColumnLayout header="BTC-GBP" style="column column-sidebar" />
-        <LeftColumnLayout header="Order Books" style="column column-left" />
+        <div className="col1">
+          <HeaderLayout
+            title="Bitcoin Exchange | BEX"
+            style="header header-small"
+          />
 
-        <ColumnLayout header="Price Charts" style="column column-central" />
-        <ColumnLayout header="Trade History" style="column column-right" />
+          <SidebarColumnLayout header="BTC-GBP" />
+        </div>
+
+        <div className="col2">
+          <HeaderLayout title="Trading" />
+          <LeftColumnLayout header="Order Books" />
+        </div>
+
+        <div className="col3">
+          <CentralColumnLayout header="Price Charts" />
+        </div>
+
+        <div className="col4">
+          <RightColumnLayout header="Trade History" />
+        </div>
       </div>
-      <div />
     </div>
   );
 }

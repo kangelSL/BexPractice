@@ -1,37 +1,19 @@
-.header {
-  display: inline-block;
-  height: 100px;
-  border: 1px solid black;
+.col1 {
+  float: left;
+  width: 250px;
 }
 
-.header-small {
-  width: 24%;
+.col2 {
+  float: left;
+  width: 250px;
 }
 
-.header-right {
-  min-width: 74.8%;
+.col3 {
+  float: left;
+  width: 250px;
 }
 
-.column {
-  display: inline-block;
-  vertical-align: top;
-  height: 100px;
-  border: 1px solid black;
-  height: 700px;
-}
-
-.column-sidebar {
-  width: 24%;
-}
-
-.column-left {
-  width: 12.5%;
-}
-
-.column-right {
-  width: 12%;
-}
-
-.column-central {
-  width: 50%;
+.col4 {
+  float: left;
+  width: 250px;
 }

@@ -67,9 +67,26 @@ const initialState = {
 
 //Reducer
 function rootReducer(state = initialState, action) {
-  return state;
+  switch (action.type) {
+    case "GET_ORDERS":
+      return {
+        ...state,
+        orders: action.payload.orders
+      };
+    case "GET_ACCOUNTS":
+      return {
+        ...state,
+        accounts: action.payload.accounts
+      };
+    case "DATA_LOADED":
+      return {
+        ...state,
+        orders: action.payload.orders,
+        accounts: action.payload.accounts
+      };
+    default:
+      return state;
+  }
 }
-
-//Action creators
 
 export default rootReducer;

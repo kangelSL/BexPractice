@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { postData } from "../../actions/index";
+import {
+  Form,
+  Button,
+  FormControl,
+  FormGroup,
+  Dropdown
+} from "react-bootstrap";
 
 class ConnectedForm extends Component {
   constructor(props) {
@@ -43,40 +50,20 @@ class ConnectedForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit} style={{ padding: 5 }}>
-        <div className="form-group">
-          <input
-            type="text"
-            className="form-control"
-            id="quantity"
-            value={this.quantity}
-            placeholder="Quantity"
-            onChange={this.handleChange}
-          />
-          <br />
-          <input
-            type="text"
-            className="form-control"
-            id="price"
-            value={this.price}
-            placeholder="Price"
-            onChange={this.handleChange}
-          />
-          <br />
-          <select
-            id="action"
-            value={this.action}
-            onChange={this.handleChange}
-            style={{ width: 174, height: 25 }}
-          >
+      <Form>
+        <FormGroup controlId="formBasicEmail">
+          <FormControl type="quantity" placeholder="Enter quantity" />
+          <FormControl type="price" placeholder="Enter price" />
+          <select>
             <option value="1">Buy</option>
             <option value="2">Sell</option>
           </select>
-        </div>
-        <button type="submit" className="btn btn-success btn-lg">
-          SUBMIT
-        </button>
-      </form>
+        </FormGroup>
+
+        <Button variant="secondary" type="submit">
+          Submit
+        </Button>
+      </Form>
     );
   }
 }
