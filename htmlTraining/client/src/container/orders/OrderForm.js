@@ -52,9 +52,17 @@ class ConnectedForm extends Component {
     return (
       <Form>
         <FormGroup controlId="formBasicEmail">
-          <FormControl type="quantity" placeholder="Enter quantity" />
-          <FormControl type="price" placeholder="Enter price" />
-          <select>
+          <FormControl
+            type="quantity"
+            placeholder="Enter quantity"
+            className="formElement"
+          />
+          <FormControl
+            type="price"
+            placeholder="Enter price"
+            className="formElement"
+          />
+          <select className="formElement">
             <option value="1">Buy</option>
             <option value="2">Sell</option>
           </select>

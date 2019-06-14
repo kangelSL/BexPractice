@@ -3,7 +3,7 @@ import React, { Component } from "react";
 
 const AccountDropdownElement = ({ accounts, onAccountChange }) => (
   <div>
-    <select style={{ width: 445, height: 25 }} onChange={onAccountChange}>
+    <select className="formElement" onChange={onAccountChange}>
       {accounts &&
         accounts.map(account => (
           <option key={account.id} value={account.id}>

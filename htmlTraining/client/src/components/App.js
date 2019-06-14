@@ -14,25 +14,28 @@ function App() {
     <div className="App">
       <div className="container-fluid">
         <div className="col1">
-          <HeaderLayout
-            title="Bitcoin Exchange | BEX"
-            style="header header-small"
-          />
+          <HeaderLayout title="Bitcoin Exchange | BEX" style="header" />
+          <HeaderLayout title="BTC_GBP" style="header-small" />
 
-          <SidebarColumnLayout header="BTC-GBP" />
+          <SidebarColumnLayout />
         </div>
 
         <div className="col2">
-          <HeaderLayout title="Trading" />
-          <LeftColumnLayout header="Order Books" />
+          <HeaderLayout title="Trading" style="header" />
+          <HeaderLayout title="Order Books" style="header-small" />
+          <LeftColumnLayout />
         </div>
 
         <div className="col3">
-          <CentralColumnLayout header="Price Charts" />
+          <HeaderLayout title="Price Charts" style="header" />
+          <HeaderLayout title="Price Charts" style="header-small" />
+          <CentralColumnLayout />
         </div>
 
         <div className="col4">
-          <RightColumnLayout header="Trade History" />
+          <HeaderLayout title="Trade History" style="header" />
+          <HeaderLayout title="Recents" style="header-small" />
+          <RightColumnLayout />
         </div>
       </div>
     </div>

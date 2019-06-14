@@ -1,19 +1,43 @@
+.header {
+  padding: 5px;
+  text-align: center;
+  color: white;
+  font-size: 20px;
+}
+
+.header-small {
+  padding: 2px;
+  text-align: center;
+  color: white;
+  font-size: 15px;
+}
+
 .col1 {
   float: left;
-  width: 250px;
+  width: 20%;
+  padding: 2px;
 }
 
 .col2 {
   float: left;
-  width: 250px;
+  width: 20%;
+  padding: 2px;
 }
 
 .col3 {
   float: left;
-  width: 250px;
+  width: 40%;
+  padding: 2px;
 }
 
 .col4 {
   float: left;
-  width: 250px;
+  width: 20%;
+  padding: 2px;
+}
+
+.formElement {
+  width: 50% !important;
+  margin-left: 100px;
+  margin-bottom: 5px;
 }
