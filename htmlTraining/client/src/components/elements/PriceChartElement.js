@@ -16,75 +16,16 @@ import {
 import { AggregateData } from "../../reducers/data/Aggregate";
 
 class PriceChartElement extends Component {
-  convertDataToPackageFormat(data) {
-    let newArray = [];
-
-    data.forEach(function(item) {
-      newArray.push = {
-        type: item.action === 1 ? "bid" : "ask",
-        total: item.quantity,
-        price: item.price
-      };
-    });
-
-    return newArray;
-  }
-
   drawContainingBox() {
     let svgCanvas = d3
-      .select(this.refs.canvas)
-      .append("svg")
+      .select("svg")
+      //.append("svg")
       .attr("width", 600)
       .attr("height", 400)
       .style("background-color", "white")
       .style("border", "1px solid white");
 
     return svgCanvas;
-  }
-
-  drawAxis(svgCanvas, data) {
-    //Min/max of quantity
-    let minQuantity = d3.min(data, function(d) {
-      return d.quantity;
-    });
-    let maxQuantity = d3.max(data, function(d) {
-      return d.quantity;
-    });
-
-    //Min/max of price
-    let minPrice = d3.min(data, function(d) {
-      return d.price;
-    });
-    let maxPrice = d3.max(data, function(d) {
-      return d.price;
-    });
-
-    // Create scale
-    let xScale = d3
-      .scaleLinear()
-      .domain([minQuantity, maxQuantity])
-      .range([0, 600 - 100]);
-
-    // Add scales to axis
-    let x_axis = d3.axisBottom().scale(xScale);
-
-    let yScale = d3
-      .scaleLinear()
-      .domain([minPrice, maxPrice])
-      .range([600 / 2, 0]);
-
-    var y_axis = d3.axisLeft().scale(yScale);
-
-    //Append group and insert axis
-    svgCanvas
-      .append("g")
-      .attr("transform", "translate(50, 330)")
-      .call(x_axis);
-
-    svgCanvas
-      .append("g")
-      .attr("transform", "translate(50, 30)")
-      .call(y_axis);
   }
 
   drawLineChart(svgCanvas, data) {
@@ -108,93 +49,118 @@ class PriceChartElement extends Component {
       );
   }
 
-  drawAreaChart(svgCanvas, data) {
-    // prepare a helper function
-    var curveFunc = d3
-      .area()
-      .x(function(d) {
-        return d.price;
-      }) // Position of both line breaks on the X axis
-      .y1(function(d) {
-        return d.quantity;
-      }) // Y position of top line breaks
-      .y0(200); // Y position of bottom line breaks (200 = bottom of svg area)
+  drawChartData(buyData, sellData) {
+    let svgWidth = 600;
+    let svgHeight = 400;
+    let margin = { top: 20, right: 20, bottom: 30, left: 50 };
+    let width = svgWidth - margin.left - margin.right;
+    let height = svgHeight - margin.top - margin.bottom;
 
-    // Add the path using this helper function
-    svgCanvas
-      .append("path")
-      .attr("d", curveFunc(data))
-      .attr("stroke", "black")
-      .attr("fill", "#69b3a2");
-  }
-
-  drawCurveChart(svgCanvas, data) {
-    // prepare a helper function
-    var curveFunc = d3
-      .line()
-      .curve(d3.curveBasis) // This is where you define the type of curve. Try curveStep for instance.
-      .x(function(d) {
-        return d.price;
-      })
-      .y(function(d) {
-        return d.quantity;
-      });
-
-    // Add the path using this helper function
-    svgCanvas
-      .append("path")
-      .attr("d", curveFunc(data))
-      .attr("stroke", "black")
-      .attr("fill", "none");
-  }
-
-  createChart(dataset) {
-    let orderAggregateArray = AggregateData(dataset);
-
-    let svgWidth = 500,
-      svgHeight = 300,
-      barPadding = 5;
-
-    let barWidth = svgWidth / dataset.length;
-
-    //dataset = [12, 22, 23, 34, 55];
     let svg = d3
       .select("svg")
       .attr("width", svgWidth)
       .attr("height", svgHeight);
 
-    let barChart = svg
-      .selectAll("rect")
-      .data(dataset)
-      .enter()
-      .append("rect")
-      .attr("y", function(d) {
-        return svgHeight - d.quantity;
+    let g = svg
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    let x = d3.scaleLinear().rangeRound([0, width]);
+    let y = d3.scaleLinear().rangeRound([height, 0]);
+
+    let line = d3
+      .line()
+      .x(function(d) {
+        return x(d.price);
       })
-      .attr("height", function(d) {
+      .y(function(d) {
+        return y(d.quantity);
+      });
+    x.domain(
+      d3.extent(buyData, function(d) {
         return d.price;
       })
-      .attr("width", barWidth - barPadding)
-      .attr("transform", function(d, i) {
-        var translate = [barWidth * i, 0];
-        return "translate(" + translate + ")";
-      });
-
-    let labels = svg
-      .selectAll("text")
-      .data(dataset)
-      .enter()
-      .append("text")
-      .text(function(d) {
+    );
+    y.domain(
+      d3.extent(buyData, function(d) {
         return d.quantity;
       })
-      .attr("y", function(d, i) {
-        return svgHeight - d.quantity - 2;
-      })
-      .attr("x", function(d, i) {
-        return barWidth * i;
-      })
-      .attr("fill", "black");
+    );
+
+    g.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x))
+      .append("text")
+      .attr("text-anchor", "end")
+      .text("Price")
+      .select(".domain")
+      .remove();
+
+    g.append("g")
+      .call(d3.axisLeft(y))
+      .append("text")
+      .attr("fill", "#000")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", "0.71em")
+      .attr("text-anchor", "end")
+      .text("Quantity");
+
+    g.append("path")
+      .datum(buyData)
+      .attr("fill", "none")
+      .attr("stroke", "red")
+      .attr("stroke-linejoin", "round")
+      .attr("stroke-linecap", "round")
+      .attr("stroke-width", 1.5)
+      .attr("d", line);
+
+    g.append("path")
+      .datum(buyData)
+      .attr("fill", "none")
+      .attr("stroke", "green")
+      .attr("stroke-linejoin", "round")
+      .attr("stroke-linecap", "round")
+      .attr("stroke-width", 1.5)
+      .attr("d", line);
+  }
+
+  //   parseChartData(data) {
+  //     let buyBook = [];
+  //     let sellBook = [];
+  //     console.log("here");
+  //     console.log(data);
+  //     for (let item in data) {
+  //       if (item.action === 1) {
+  //         buyBook.push({
+  //           price: item.price,
+  //           quantity: item.quantity
+  //         });
+  //       } else {
+  //         sellBook.push({
+  //           price: item.price,
+  //           quantity: item.quantity
+  //         });
+  //       }
+  //     }
+
+  //     return [buyBook, sellBook];
+  //   }
+
+  createChart(dataset) {
+    let orderAggregateArray = AggregateData(dataset);
+
+    let buyData = dataset.filter(function(data) {
+      return data.action === 1;
+    });
+
+    let sellData = dataset.filter(function(data) {
+      return data.action === 2;
+    });
+
+    let svgCanvas = this.drawContainingBox(dataset);
+    //this.drawLineChart(svgCanvas, dataset);
+
+    this.drawChartData(buyData, sellData);
 
     console.log(orderAggregateArray);
   }

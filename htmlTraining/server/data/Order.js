@@ -60,12 +60,46 @@ function getOrders() {
     // new Order(5, 270, 300, 2),
     // new Order(5, 330, 400, 2)
 
+    //accountId, quantity, price, action
+
+    //Sell data
+    new Order(1, 200, 10, 2),
+    new Order(1, 200, 10, 2),
+    new Order(1, 200, 15, 2),
+    new Order(1, 180, 20, 2),
+    new Order(1, 160, 20, 2),
+    new Order(1, 140, 25, 2),
+    new Order(1, 120, 30, 2),
+    new Order(1, 100, 35, 2),
+    new Order(1, 80, 40, 2),
+    new Order(1, 60, 45, 2),
+    new Order(1, 40, 50, 2),
+    new Order(1, 20, 55, 2),
+    // new Order(1, 200, 65, 2),
+    // new Order(1, 200, 70, 2),
+    // new Order(1, 200, 75, 2),
+    // new Order(1, 200, 80, 2),
+    // new Order(1, 200, 85, 2),
+    // new Order(1, 200, 90, 2),
+    new Order(1, 50, 100, 2),
+
+    //Buy data
+    new Order(1, 0, 0, 1),
     new Order(1, 5, 5, 1),
+    new Order(1, 6, 5, 1),
+    new Order(1, 7, 5, 1),
+    new Order(1, 8, 5, 1),
+    new Order(1, 9, 5, 1),
     new Order(1, 10, 5, 1),
-    new Order(1, 15, 5, 1),
-    new Order(1, 20, 5, 2),
-    new Order(1, 25, 5, 2),
-    new Order(1, 30, 5, 2)
+    new Order(1, 10, 6, 1),
+    new Order(1, 10, 7, 1),
+    new Order(1, 10, 8, 1),
+    new Order(1, 10, 9, 1),
+    new Order(1, 10, 10, 1),
+    new Order(1, 10, 15, 1),
+    new Order(1, 15, 15, 1),
+    new Order(1, 15, 20, 1),
+    new Order(1, 20, 20, 1)
   ];
 }
 
