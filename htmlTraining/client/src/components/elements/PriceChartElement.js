@@ -49,7 +49,17 @@ class PriceChartElement extends Component {
       );
   }
 
-  drawChartData(buyData, sellData) {
+  drawChartData(buyData, sellData, data) {
+    var curveFunc = d3
+      .line()
+      .curve(d3.curveBasis) // This is where you define the type of curve. Try curveStep for instance.
+      .x(function(d) {
+        return d.price;
+      })
+      .y(function(d) {
+        return d.quantity;
+      });
+
     let svgWidth = 600;
     let svgHeight = 400;
     let margin = { top: 20, right: 20, bottom: 30, left: 50 };
@@ -76,12 +86,12 @@ class PriceChartElement extends Component {
         return y(d.quantity);
       });
     x.domain(
-      d3.extent(buyData, function(d) {
+      d3.extent(data, function(d) {
         return d.price;
       })
     );
     y.domain(
-      d3.extent(buyData, function(d) {
+      d3.extent(data, function(d) {
         return d.quantity;
       })
     );
@@ -112,39 +122,18 @@ class PriceChartElement extends Component {
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
       .attr("stroke-width", 1.5)
-      .attr("d", line);
+      .attr("d", curveFunc(buyData));
+    //.attr("d", line);
 
     g.append("path")
-      .datum(buyData)
+      .datum(sellData)
       .attr("fill", "none")
       .attr("stroke", "green")
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
       .attr("stroke-width", 1.5)
-      .attr("d", line);
+      .attr("d", curveFunc(sellData));
   }
-
-  //   parseChartData(data) {
-  //     let buyBook = [];
-  //     let sellBook = [];
-  //     console.log("here");
-  //     console.log(data);
-  //     for (let item in data) {
-  //       if (item.action === 1) {
-  //         buyBook.push({
-  //           price: item.price,
-  //           quantity: item.quantity
-  //         });
-  //       } else {
-  //         sellBook.push({
-  //           price: item.price,
-  //           quantity: item.quantity
-  //         });
-  //       }
-  //     }
-
-  //     return [buyBook, sellBook];
-  //   }
 
   createChart(dataset) {
     let orderAggregateArray = AggregateData(dataset);
@@ -160,7 +149,7 @@ class PriceChartElement extends Component {
     let svgCanvas = this.drawContainingBox(dataset);
     //this.drawLineChart(svgCanvas, dataset);
 
-    this.drawChartData(buyData, sellData);
+    this.drawChartData(buyData, sellData, dataset);
 
     console.log(orderAggregateArray);
   }
