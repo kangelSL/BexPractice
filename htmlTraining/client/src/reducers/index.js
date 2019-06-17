@@ -1,7 +1,10 @@
 const initialState = {
   accounts: [],
   orders: [],
-  currentAccountId: 1
+  currentAccountId: 1,
+  action: 1,
+  quantity: "",
+  price: ""
 };
 
 //Reducer
@@ -32,6 +35,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         currentAccountId: +action.payload
       };
+    case "UPDATE_FORM":
+      return {
+        ...state,
+        [action.payload.name]: +action.payload.value
+      };
     case "DATA_POSTED":
       let response = action.payload.data;
       let order = response.order;
@@ -48,10 +56,6 @@ function rootReducer(state = initialState, action) {
       //If items remain just concat new order onto the existing
       let newOrders =
         order.quantity !== 0 ? currentOrders.concat(order) : currentOrders;
-
-      // return Object.assign({}, state, {
-      //   orders: state.orders.concat(newOrders)
-      // });
 
       return {
         ...state,

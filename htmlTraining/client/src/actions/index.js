@@ -5,6 +5,10 @@ export function updateAccountId(payload) {
   return { type: UPDATE_ACCOUNT_ID, payload };
 }
 
+export function updateForm(payload) {
+  return { type: "UPDATE_FORM", payload };
+}
+
 export function getOrders() {
   return function(dispatch) {
     return fetch("http://localhost:3000/getOrders")
@@ -26,9 +30,6 @@ export function getAccounts() {
 }
 
 export function postData(payload) {
-  console.log("allCorrectHere");
-  console.log(payload);
-
   return dispatch => {
     axios
       .post("http://localhost:3000/postOrder", {

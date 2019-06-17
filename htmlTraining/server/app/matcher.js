@@ -32,36 +32,26 @@ function MatcherApi(order) {
 }
 
 function findTrade(order, currentOrders) {
-  let matchIndex = "";
+  let trade = "";
 
-  // Need to mutate original array so use loop
-  forLoop: for (let i = 0; i < currentOrders.length; i++) {
-    // Buy order
-    if (+order.action === 1) {
-      if (
-        currentOrders[i].acceptablePricePerCoin <=
-          order.acceptablePricePerCoin &&
-        currentOrders[i].accountId !== order.accountId &&
-        currentOrders[i].action === ACTION_TYPES.SELL
-      ) {
-        matchIndex = i;
-        break forLoop;
-      }
-    } else {
-      if (
-        currentOrders[i].acceptablePricePerCoin >=
-          order.acceptablePricePerCoin &&
-        currentOrders[i].accountId !== order.accountId &&
-        currentOrders[i].action === ACTION_TYPES.BUY
-      ) {
-        matchIndex = i;
-        break forLoop;
-      }
-    }
+  if (order.action === 1) {
+    trade = currentOrders.orders.find(
+      currentOrder =>
+        currentOrder.acceptablePricePerCoin <= order.acceptablePricePerCoin &&
+        currentOrder.accountId !== order.accountId &&
+        currentOrder.action === ACTION_TYPES.SELL
+    );
+  } else {
+    trade = currentOrders.orders.find(
+      currentOrder =>
+        currentOrder.acceptablePricePerCoin >= order.acceptablePricePerCoin &&
+        currentOrder.accountId !== order.accountId &&
+        currentOrder.action === ACTION_TYPES.BUY
+    );
   }
 
-  if (typeof matchIndex === "number") {
-    let trade = currentOrders[matchIndex];
+  if (trade > "") {
+    //let trade = match;
     let difference = trade.quantity - order.quantity;
 
     //Make the trade

@@ -23,7 +23,6 @@ let appRouter = function(app) {
   });
 
   app.post("/postOrder", function(request, response) {
-    console.log(request.body.payload);
     let result = new MatcherApi(request.body.payload);
     response.status(200).send(result);
   });

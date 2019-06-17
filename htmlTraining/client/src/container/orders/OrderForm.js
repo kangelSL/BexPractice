@@ -25,8 +25,6 @@ class ConnectedForm extends Component {
   }
 
   handleChange(event) {
-    console.log(event.target.id);
-    console.log(event.target.value);
     this.setState({ [event.target.id]: event.target.value });
   }
 
