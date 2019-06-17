@@ -28,7 +28,6 @@ function App() {
 
         <div className="col3">
           <HeaderLayout title="Price Charts" style="header" />
-          <HeaderLayout title="Price Charts" style="header-small" />
           <CentralColumnLayout />
         </div>
 
