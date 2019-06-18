@@ -1,6 +1,7 @@
 const initialState = {
   accounts: [],
   orders: [],
+  matchedOrders: [],
   currentAccountId: 1,
   action: 1,
   quantity: "",

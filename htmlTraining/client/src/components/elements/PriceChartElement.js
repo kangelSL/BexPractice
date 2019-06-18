@@ -1,6 +1,7 @@
 import "../styles/App.css";
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { selection } from "d3-selection";
 import * as d3 from "d3";
 import {
   select,
@@ -16,12 +17,98 @@ import {
 import { AggregateData } from "../../reducers/data/Aggregate";
 
 class PriceChartElement extends Component {
+  componentDidMount() {
+    this.didLoad = false;
+  }
+
   componentDidUpdate() {
-    this.createChart(this.props.orders);
+    if (!this.didLoad) {
+      this.createChart();
+      this.didLoad = true;
+    } else {
+      this.updateChart(this.props.orders);
+    }
+  }
+
+  createChart() {
+    let dataset = this.props.orders;
+
+    const buyData = dataset.filter(function(data) {
+      return data.action === 1;
+    });
+
+    const sellData = dataset.filter(function(data) {
+      return data.action === 2;
+    });
+
+    let svgCanvas = this.drawContainingBox(dataset);
+
+    this.drawChartData(buyData, sellData, dataset);
+  }
+
+  updateChart(data) {
+    const svgWidth = 600;
+    const svgHeight = 400;
+    const margin = { top: 20, right: 20, bottom: 30, left: 50 };
+    const width = svgWidth - margin.left - margin.right;
+    const height = svgHeight - margin.top - margin.bottom;
+
+    //Reset svg
+    let svg = "";
+    svg = d3
+      .select("svg")
+      .attr("id", "depthChart")
+      .attr("width", svgWidth)
+      .attr("height", svgHeight);
+
+    const g = svg
+      .append("g")
+      .attr("id", "gItem")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    //Data Join
+    //Join new data with old elements
+    let buyData = g.selectAll("#buyData").data(data);
+    console.log("here!!!!!");
+    console.log(buyData);
+    console.log(data);
+    let sellData = g.selectAll("#sellData").data(data);
+
+    // UPDATE
+    // Update old elements as needed.
+    buyData.attr("class", "update");
+    sellData.attr("class", "update");
+
+    // g.append("path")
+    //   .datum(buyData)
+    //   .attr("id", "buySection")
+    //   .attr("fill", "#B22222")
+    //   .attr("stroke", "red")
+    //   .attr("stroke-linejoin", "round")
+    //   .attr("stroke-linecap", "round")
+    //   .attr("stroke-width", 1.5)
+    //   .attr(
+    //     "d",
+    //     d3
+    //       .area()
+    //       .x(function(d) {
+    //         return x(d.price);
+    //       })
+    //       .y0(y(100))
+    //       .y1(function(d) {
+    //         return y(d.quantity);
+    //       })
+    //   );
+
+    // EXIT
+    // Remove old elements as needed.
+    buyData.exit().remove();
+    sellData.exit().remove();
   }
 
   drawContainingBox() {
-    let svgCanvas = d3
+    let svgCanvas = "";
+    svgCanvas = d3
       .select("svg")
       .attr("width", 600)
       .attr("height", 400)
@@ -33,24 +120,28 @@ class PriceChartElement extends Component {
   }
 
   drawChartData(buyData, sellData, data) {
-    let svgWidth = 600;
-    let svgHeight = 400;
-    let margin = { top: 20, right: 20, bottom: 30, left: 50 };
-    let width = svgWidth - margin.left - margin.right;
-    let height = svgHeight - margin.top - margin.bottom;
+    const svgWidth = 600;
+    const svgHeight = 400;
+    const margin = { top: 20, right: 20, bottom: 30, left: 50 };
+    const width = svgWidth - margin.left - margin.right;
+    const height = svgHeight - margin.top - margin.bottom;
 
-    let svg = d3
+    //Reset svg
+    let svg = "";
+    svg = d3
       .select("svg")
+      .attr("id", "depthChart")
       .attr("width", svgWidth)
       .attr("height", svgHeight);
 
-    let g = svg
+    const g = svg
       .append("g")
+      .attr("id", "gItem")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-    let x = d3.scaleLinear().range([0, width]);
-    let y = d3.scaleLinear().range([height, 0]);
+    const x = d3.scaleLinear().range([0, width]);
+    const y = d3.scaleLinear().range([height, 0]);
 
-    let line = d3
+    const line = d3
       .line()
       .x(function(d) {
         return x(d.price);
@@ -73,6 +164,7 @@ class PriceChartElement extends Component {
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x))
       .append("text")
+      .attr("id", "yAxis")
       .attr("text-anchor", "end")
       .text("Price")
       .select(".domain")
@@ -81,6 +173,7 @@ class PriceChartElement extends Component {
     g.append("g")
       .call(d3.axisLeft(y))
       .append("text")
+      .attr("id", "xAxis")
       .attr("fill", "#000")
       .attr("transform", "rotate(-90)")
       .attr("y", 6)
@@ -90,6 +183,7 @@ class PriceChartElement extends Component {
 
     g.append("path")
       .datum(buyData)
+      .attr("id", "buySection")
       .attr("fill", "#B22222")
       .attr("stroke", "red")
       .attr("stroke-linejoin", "round")
@@ -110,6 +204,7 @@ class PriceChartElement extends Component {
 
     g.append("path")
       .datum(sellData)
+      .attr("id", "sellSection")
       .attr("fill", "#cce5df")
       .attr("stroke", "green")
       .attr("stroke-linejoin", "round")
@@ -128,7 +223,7 @@ class PriceChartElement extends Component {
           })
       );
 
-    var focus = svg.append("g").style("display", "none");
+    const focus = svg.append("g").style("display", "none");
 
     // append the x line
     focus
@@ -202,7 +297,7 @@ class PriceChartElement extends Component {
       })
       .on("mousemove", mousemove);
 
-    let bisectPrice = d3.bisector(function(d) {
+    const bisectPrice = d3.bisector(function(d) {
       return d.price;
     }).left;
 
@@ -214,9 +309,6 @@ class PriceChartElement extends Component {
         d = x0 - d0 > d1 - x0 ? d1 : d0;
 
       d = data[i];
-
-      //let xPoint = d3.axisBottom().scale(d.price);
-      //let yPoint = d3.axisLeft().scale(d.quantity);
 
       focus
         .select("circle.y")
@@ -274,24 +366,6 @@ class PriceChartElement extends Component {
     }
   }
 
-  createChart(dataset) {
-    let orderAggregateArray = AggregateData(dataset);
-
-    let buyData = dataset.filter(function(data) {
-      return data.action === 1;
-    });
-
-    let sellData = dataset.filter(function(data) {
-      return data.action === 2;
-    });
-
-    let svgCanvas = this.drawContainingBox(dataset);
-
-    this.drawChartData(buyData, sellData, dataset);
-
-    console.log(orderAggregateArray);
-  }
-
   render() {
     return (
       <div>
@@ -303,7 +377,8 @@ class PriceChartElement extends Component {
 
 function mapStateToProps(state) {
   return {
-    orders: state.orders
+    orders: state.orders,
+    loaded: false
   };
 }
 

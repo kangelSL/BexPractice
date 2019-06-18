@@ -5,7 +5,7 @@ import PriceChartElement from "../../components/elements/PriceChartElement";
 
 class CentralColumnLayout extends Component {
   render() {
-    return <PriceChartElement />;
+    return <PriceChartElement width={800} height={600} />;
   }
 }
 
