@@ -64,33 +64,21 @@ function getOrders() {
 
     // Sell data
     new Order(1, 180, 70, 2),
-    new Order(1, 170, 80, 2),
-    new Order(1, 160, 90, 2),
-    new Order(1, 180, 100, 2),
+    new Order(1, 150, 80, 2),
+    new Order(1, 130, 90, 2),
+    new Order(1, 120, 95, 2),
+    new Order(1, 115, 96, 2),
+    new Order(1, 110, 97, 2),
+    new Order(1, 110, 100, 2),
+    new Order(1, 100, 100, 2),
+    //new Order(1, 105, 105, 2),
 
-    new Order(1, 70, 160, 2),
-    new Order(1, 60, 130, 2),
-    new Order(1, 55, 120, 2),
-    new Order(1, 50, 100, 2),
-    new Order(1, 45, 95, 2),
-    new Order(1, 40, 90, 2),
-    new Order(1, 35, 85, 2),
-
-    //Centre point
-    new Order(1, 15, 75, 2),
-    new Order(1, 10, 70, 2),
-
-    new Order(1, 10, 71, 1),
-    new Order(1, 15, 75, 1),
-
-    // Buy data
-    new Order(1, 100, 120, 1),
-    new Order(1, 100, 130, 1),
-
-    new Order(1, 160, 200, 1),
-    new Order(1, 170, 200, 1),
-    new Order(1, 150, 200, 1),
-    new Order(1, 190, 200, 1)
+    //Buy data
+    new Order(1, 110, 110, 1),
+    new Order(1, 140, 130, 1),
+    new Order(1, 160, 150, 1),
+    new Order(1, 165, 170, 1),
+    new Order(1, 180, 200, 1)
   ];
 }
 

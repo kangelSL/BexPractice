@@ -82,3 +82,24 @@ drawCurveChart(svgCanvas, data) {
       .attr("stroke", "black")
       .attr("fill", "none");
 }
+
+drawLineChart(svgCanvas, data) {
+  // Add the line
+  svgCanvas
+    .append("path")
+    .datum(data)
+    .attr("fill", "none")
+    .attr("stroke", "black")
+    .attr("stroke-width", 1.5)
+    .attr(
+      "d",
+      d3
+        .line()
+        .x(function(d) {
+          return d.price;
+        })
+        .y(function(d) {
+          return d.quantity;
+        })
+    );
+}

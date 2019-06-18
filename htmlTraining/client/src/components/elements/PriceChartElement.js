@@ -28,27 +28,6 @@ class PriceChartElement extends Component {
     return svgCanvas;
   }
 
-  drawLineChart(svgCanvas, data) {
-    // Add the line
-    svgCanvas
-      .append("path")
-      .datum(data)
-      .attr("fill", "none")
-      .attr("stroke", "black")
-      .attr("stroke-width", 1.5)
-      .attr(
-        "d",
-        d3
-          .line()
-          .x(function(d) {
-            return d.price;
-          })
-          .y(function(d) {
-            return d.quantity;
-          })
-      );
-  }
-
   drawChartData(buyData, sellData, data) {
     var curveFunc = d3
       .line()
@@ -127,12 +106,23 @@ class PriceChartElement extends Component {
 
     g.append("path")
       .datum(sellData)
-      .attr("fill", "none")
+      .attr("fill", "#cce5df")
       .attr("stroke", "green")
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
       .attr("stroke-width", 1.5)
-      .attr("d", curveFunc(sellData));
+      .attr(
+        "d",
+        d3
+          .area()
+          .x(function(d) {
+            return x(d.price);
+          })
+          .y0(y(100))
+          .y1(function(d) {
+            return y(d.quantity);
+          })
+      );
   }
 
   createChart(dataset) {
@@ -147,7 +137,6 @@ class PriceChartElement extends Component {
     });
 
     let svgCanvas = this.drawContainingBox(dataset);
-    //this.drawLineChart(svgCanvas, dataset);
 
     this.drawChartData(buyData, sellData, dataset);
 
