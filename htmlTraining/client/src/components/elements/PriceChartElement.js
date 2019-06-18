@@ -16,10 +16,13 @@ import {
 import { AggregateData } from "../../reducers/data/Aggregate";
 
 class PriceChartElement extends Component {
+  componentDidUpdate() {
+    this.createChart(this.props.orders);
+  }
+
   drawContainingBox() {
     let svgCanvas = d3
       .select("svg")
-      //.append("svg")
       .attr("width", 600)
       .attr("height", 400)
       .style("background-color", "white")
@@ -29,16 +32,6 @@ class PriceChartElement extends Component {
   }
 
   drawChartData(buyData, sellData, data) {
-    var curveFunc = d3
-      .line()
-      .curve(d3.curveBasis) // This is where you define the type of curve. Try curveStep for instance.
-      .x(function(d) {
-        return d.price;
-      })
-      .y(function(d) {
-        return d.quantity;
-      });
-
     let svgWidth = 600;
     let svgHeight = 400;
     let margin = { top: 20, right: 20, bottom: 30, left: 50 };
@@ -53,8 +46,8 @@ class PriceChartElement extends Component {
     let g = svg
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-    let x = d3.scaleLinear().rangeRound([0, width]);
-    let y = d3.scaleLinear().rangeRound([height, 0]);
+    let x = d3.scaleLinear().range([0, width]);
+    let y = d3.scaleLinear().range([height, 0]);
 
     let line = d3
       .line()
@@ -113,7 +106,6 @@ class PriceChartElement extends Component {
             return y(d.quantity);
           })
       );
-    //.attr("d", curveFunc(buyData));
 
     g.append("path")
       .datum(sellData)
@@ -134,6 +126,151 @@ class PriceChartElement extends Component {
             return y(d.quantity);
           })
       );
+
+    var focus = svg.append("g").style("display", "none");
+
+    // append the x line
+    focus
+      .append("line")
+      .attr("class", "x")
+      .style("stroke", "blue")
+      .style("stroke-dasharray", "3,3")
+      .style("opacity", 0.5)
+      .attr("y1", 0)
+      .attr("y2", height);
+
+    // append the y line
+    focus
+      .append("line")
+      .attr("class", "y")
+      .style("stroke", "blue")
+      .style("stroke-dasharray", "3,3")
+      .style("opacity", 0.5)
+      .attr("x1", width)
+      .attr("x2", width);
+
+    // place the value at the intersection
+    focus
+      .append("text")
+      .attr("class", "y1")
+      .style("stroke", "white")
+      .style("stroke-width", "3.5px")
+      .style("opacity", 0.8)
+      .attr("dx", 8)
+      .attr("dy", "-.3em");
+    focus
+      .append("text")
+      .attr("class", "y2")
+      .attr("dx", 8)
+      .attr("dy", "-.3em");
+
+    // place the date at the intersection
+    focus
+      .append("text")
+      .attr("class", "y3")
+      .style("stroke", "white")
+      .style("stroke-width", "3.5px")
+      .style("opacity", 0.8)
+      .attr("dx", 8)
+      .attr("dy", "1em");
+    focus
+      .append("text")
+      .attr("class", "y4")
+      .attr("dx", 8)
+      .attr("dy", "1em");
+
+    // Append the circle at the intersection
+    focus
+      .append("circle")
+      .attr("class", "y")
+      .style("fill", "none")
+      .style("stroke", "blue")
+      .attr("r", 4);
+
+    svg
+      .append("rect")
+      .attr("width", width)
+      .attr("height", height)
+      .style("fill", "none")
+      .style("pointer-events", "all")
+      .on("mouseover", function() {
+        focus.style("display", null);
+      })
+      .on("mouseout", function() {
+        focus.style("display", "none");
+      })
+      .on("mousemove", mousemove);
+
+    let bisectPrice = d3.bisector(function(d) {
+      return d.price;
+    }).left;
+
+    function mousemove() {
+      let x0 = x.invert(d3.mouse(this)[0]),
+        i = bisectPrice(data, x0, 1),
+        d0 = data[i - 1],
+        d1 = data[i],
+        d = x0 - d0 > d1 - x0 ? d1 : d0;
+
+      d = data[i];
+
+      let xPoint = d3.axisBottom().scale(d.price);
+      let yPoint = d3.axisLeft().scale(d.quantity);
+
+      focus
+        .select("circle.y")
+        .attr(
+          "transform",
+          "translate(" + x(d.price) + "," + y(d.quantity) + ")"
+        );
+      focus
+        .select("text.y1")
+        .attr(
+          "transform",
+          "translate(" + x(d.price) + "," + y(d.quantity) + ")"
+        )
+        .text("Quantity " + d.quantity);
+
+      focus
+        .select("text.y2")
+        .attr(
+          "transform",
+          "translate(" + x(d.price) + "," + y(d.quantity) + ")"
+        )
+        .text("Quantity " + d.quantity);
+
+      focus
+        .select("text.y3")
+        .attr(
+          "transform",
+          "translate(" + x(d.price) + "," + y(d.quantity) + ")"
+        )
+        .text("Price " + d.price);
+
+      focus
+        .select("text.y4")
+        .attr(
+          "transform",
+          "translate(" + x(d.price) + "," + y(d.quantity) + ")"
+        )
+        .text("Price " + d.price);
+
+      focus
+        .select(".x")
+        .attr(
+          "transform",
+          "translate(" + x(d.price) + "," + y(d.quantity) + ")"
+        )
+        .attr("y2", height - y(d.quantity));
+
+      focus
+        .select(".y")
+        .attr(
+          "transform",
+          "translate(" + width * -1 + "," + y(d.quantity) + ")"
+        )
+        .attr("x2", width + width);
+    }
   }
 
   createChart(dataset) {
@@ -155,7 +292,6 @@ class PriceChartElement extends Component {
   }
 
   render() {
-    this.createChart(this.props.orders);
     return (
       <div>
         <svg id="depthChart" width="1000" height="500" />
