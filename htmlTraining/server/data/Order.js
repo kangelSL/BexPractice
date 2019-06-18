@@ -80,10 +80,13 @@ function getOrders() {
     new Order(1, 100, 120, 2),
 
     //Buy data
-    new Order(1, 110, 110, 1),
-    new Order(1, 140, 130, 1),
-    new Order(1, 160, 150, 1),
-    new Order(1, 165, 170, 1),
+    new Order(1, 100, 130, 1),
+    new Order(1, 110, 140, 1),
+    new Order(1, 120, 150, 1),
+    new Order(1, 130, 160, 1),
+    new Order(1, 150, 170, 1),
+    new Order(1, 160, 180, 1),
+    new Order(1, 170, 190, 1),
     new Order(1, 180, 200, 1)
   ];
 }
