@@ -25,7 +25,8 @@ class PriceChartElement extends Component {
       .select("svg")
       .attr("width", 600)
       .attr("height", 400)
-      .style("background-color", "white")
+      .style("background-color", "black")
+      .style("color", "white")
       .style("border", "1px solid white");
 
     return svgCanvas;
@@ -133,7 +134,7 @@ class PriceChartElement extends Component {
     focus
       .append("line")
       .attr("class", "x")
-      .style("stroke", "blue")
+      .style("stroke", "white")
       .style("stroke-dasharray", "3,3")
       .style("opacity", 0.5)
       .attr("y1", 0)
@@ -143,7 +144,7 @@ class PriceChartElement extends Component {
     focus
       .append("line")
       .attr("class", "y")
-      .style("stroke", "blue")
+      .style("stroke", "white")
       .style("stroke-dasharray", "3,3")
       .style("opacity", 0.5)
       .attr("x1", width)
@@ -183,8 +184,8 @@ class PriceChartElement extends Component {
     focus
       .append("circle")
       .attr("class", "y")
-      .style("fill", "none")
-      .style("stroke", "blue")
+      .style("fill", "white")
+      .style("stroke", "white")
       .attr("r", 4);
 
     svg
@@ -214,8 +215,8 @@ class PriceChartElement extends Component {
 
       d = data[i];
 
-      let xPoint = d3.axisBottom().scale(d.price);
-      let yPoint = d3.axisLeft().scale(d.quantity);
+      //let xPoint = d3.axisBottom().scale(d.price);
+      //let yPoint = d3.axisLeft().scale(d.quantity);
 
       focus
         .select("circle.y")
