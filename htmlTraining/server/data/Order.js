@@ -69,9 +69,15 @@ function getOrders() {
     new Order(1, 120, 95, 2),
     new Order(1, 115, 96, 2),
     new Order(1, 110, 97, 2),
-    new Order(1, 110, 100, 2),
-    new Order(1, 100, 100, 2),
-    //new Order(1, 105, 105, 2),
+    new Order(1, 109, 100, 2),
+    new Order(1, 108, 100, 2),
+    new Order(1, 107, 105, 2),
+    new Order(1, 107, 110, 2),
+    new Order(1, 106, 112, 2),
+    new Order(1, 105, 114, 2),
+    new Order(1, 104, 116, 2),
+    new Order(1, 103, 118, 2),
+    new Order(1, 100, 120, 2),
 
     //Buy data
     new Order(1, 110, 110, 1),

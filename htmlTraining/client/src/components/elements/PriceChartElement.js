@@ -96,13 +96,24 @@ class PriceChartElement extends Component {
 
     g.append("path")
       .datum(buyData)
-      .attr("fill", "none")
+      .attr("fill", "#B22222")
       .attr("stroke", "red")
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
       .attr("stroke-width", 1.5)
-      .attr("d", curveFunc(buyData));
-    //.attr("d", line);
+      .attr(
+        "d",
+        d3
+          .area()
+          .x(function(d) {
+            return x(d.price);
+          })
+          .y0(y(100))
+          .y1(function(d) {
+            return y(d.quantity);
+          })
+      );
+    //.attr("d", curveFunc(buyData));
 
     g.append("path")
       .datum(sellData)
