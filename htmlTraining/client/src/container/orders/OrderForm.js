@@ -70,6 +70,7 @@ class ConnectedForm extends Component {
           />
           <select
             className="formElement"
+            id="action"
             value={this.action}
             onChange={this.handleChange}
           >

@@ -79,6 +79,7 @@ class SimplePriceChartElement extends Component {
     data.forEach(function(d) {
       d.quantity = +d.quantity;
       d.price = +d.price;
+      d.action = +d.action;
     });
 
     // Scale the range of the data
@@ -171,6 +172,7 @@ class SimplePriceChartElement extends Component {
     data.forEach(function(d) {
       d.price = +d.price;
       d.quantity = +d.quantity;
+      d.action = +d.action;
     });
 
     //Scale the range of the data again
@@ -191,20 +193,16 @@ class SimplePriceChartElement extends Component {
     // Select the section we want to apply our changes to
     let svg = d3.select("#option").transition();
 
-    let minYValue = d3.min(data, function(d) {
-      return d.quantity;
-    });
-
     // Update area lines
     svg
       .select("#buySection")
       .duration(750)
-      .attr("d", valueline2(buyData, minYValue));
+      .attr("d", valueline2(buyData));
 
     svg
       .select("#sellSection")
       .duration(750)
-      .attr("d", valueline2(sellData, minYValue));
+      .attr("d", valueline2(sellData));
 
     // Change the X axis
     svg
