@@ -199,7 +199,7 @@ class SimplePriceChartElement extends Component {
 
     // change the Y axis
     svg
-      .select(".y.axis") // change the y axis
+      .select(".y.axis")
       .duration(750)
       .call(yAxis);
   }
