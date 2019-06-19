@@ -2,7 +2,7 @@ var MatcherApi = require("../app/matcher");
 var Accounts = require("../data/Account");
 var Orders = require("../data/Order");
 
-let appRouter = function(app) {
+const appRouter = function(app) {
   //Override CORS framework
   app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
@@ -13,17 +13,17 @@ let appRouter = function(app) {
   });
 
   app.get("/getOrders", function(request, response) {
-    let data = new Orders();
+    const data = new Orders();
     response.status(200).send(data);
   });
 
   app.get("/getAccounts", function(request, response) {
-    let data = new Accounts();
+    const data = new Accounts();
     response.status(200).send(data);
   });
 
   app.post("/postOrder", function(request, response) {
-    let result = new MatcherApi(request.body.payload);
+    const result = new MatcherApi(request.body.payload);
     response.status(200).send(result);
   });
 };

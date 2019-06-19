@@ -4,8 +4,8 @@ import OrderTableElement from "../../components/elements/OrderTableElement";
 
 class OrderListRecent extends Component {
   getListItems() {
-    if (typeof this.props.orders !== "undefined") {
-      return this.props.orders.slice(1).slice(-5);
+    if (typeof this.props.matchedOrders !== "undefined") {
+      return this.props.matchedOrders;
     } else {
       return {};
     }
@@ -22,7 +22,8 @@ class OrderListRecent extends Component {
 
 function mapStateToProps(state) {
   return {
-    orders: state.orders
+    orders: state.orders,
+    matchedOrders: state.matchedOrders
   };
 }
 

@@ -44,23 +44,31 @@ function rootReducer(state = initialState, action) {
     case "DATA_POSTED":
       let response = action.payload.data;
       let order = response.order;
+      let originalOrder = response.originalOrder;
       let currentOrders = response.currentOrders.orders;
+      let matchedOrder = "";
 
       // Alert user of order success/failure
       alert(action.payload.data.result);
 
-      //Splice orders to empty and return adjusted array
-      if (state.orders !== currentOrders) {
-        state.orders.splice(0, state.orders.length);
-      }
+      //If order matched then add to recent orders
+      if (order.quantity === 0) {
+        matchedOrder = originalOrder;
+      } else {
+        //Splice orders to empty and return adjusted array
+        if (state.orders !== currentOrders) {
+          state.orders.splice(0, state.orders.length);
+        }
 
-      //If items remain just concat new order onto the existing
-      let newOrders =
-        order.quantity !== 0 ? currentOrders.concat(order) : currentOrders;
+        //If items remain just concat new order onto the existing
+        currentOrders =
+          order.quantity !== 0 ? currentOrders.concat(order) : currentOrders;
+      }
 
       return {
         ...state,
-        orders: state.orders.concat(newOrders)
+        orders: state.orders.concat(currentOrders),
+        matchedOrders: state.matchedOrders.concat(matchedOrder)
       };
 
     default:

@@ -1,4 +1,4 @@
-import "../styles/App.css";
+import "../styles/App.scss";
 import React, { Component } from "react";
 
 const AccountDropdownElement = ({ accounts, onAccountChange }) => (

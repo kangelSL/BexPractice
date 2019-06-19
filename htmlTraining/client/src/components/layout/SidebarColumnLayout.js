@@ -1,4 +1,4 @@
-import "../styles/App.css";
+import "../styles/App.scss";
 import React, { Component } from "react";
 import OrderFormLayout from "./OrderFormLayout";
 import AccountDropdown from "../../container/AccountDropdown";

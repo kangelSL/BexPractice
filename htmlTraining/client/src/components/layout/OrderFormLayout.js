@@ -1,4 +1,4 @@
-import "../styles/App.css";
+import "../styles/App.scss";
 import React, { Component } from "react";
 import OrderForm from "../../container/orders/OrderForm";
 import { Panel } from "react-bootstrap";

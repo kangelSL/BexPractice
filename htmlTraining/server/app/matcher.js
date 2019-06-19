@@ -1,29 +1,30 @@
-let Orders = require("../data/Order");
+const Orders = require("../data/Order");
 
-let ACTION_TYPES = {
+const ACTION_TYPES = {
   BUY: 1,
   SELL: 2
 };
 
 function MatcherApi(order) {
-  let findOrder = {
+  const findOrder = {
     accountId: +order.accountId,
     quantity: +order.quantity,
     price: +order.price,
-    action: order.action,
+    action: +order.action,
     acceptablePricePerCoin: +order.price / +order.quantity
   };
 
-  let currentOrders = new Orders();
+  const currentOrders = new Orders();
 
-  let result = findTrade(findOrder, currentOrders);
+  const result = findTrade(findOrder, currentOrders);
 
-  let resultString = result
+  const resultString = result
     ? ["All traded"]
     : [findOrder.quantity + ` Bitcoins remain from trades`];
 
-  let returnObj = {
+  const returnObj = {
     result: resultString,
+    originalOrder: order,
     order: findOrder,
     currentOrders: currentOrders
   };
@@ -51,7 +52,6 @@ function findTrade(order, currentOrders) {
   }
 
   if (trade > "") {
-    //let trade = match;
     let difference = trade.quantity - order.quantity;
 
     //Make the trade
@@ -62,7 +62,7 @@ function findTrade(order, currentOrders) {
 
     if (trade.quantity === 0) {
       //Remove from array
-      currentOrders.splice(matchIndex, 1);
+      //currentOrders.splice(matchIndex, 1);
     }
 
     //If user order has been handled return else call the function again

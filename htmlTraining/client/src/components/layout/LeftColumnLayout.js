@@ -1,4 +1,4 @@
-import "../styles/App.css";
+import "../styles/App.scss";
 import React, { Component } from "react";
 import OrderListComponent from "../orders/OrderListComponent";
 import OrderListAggregated from "../../container/orders/OrderListAggregated";
