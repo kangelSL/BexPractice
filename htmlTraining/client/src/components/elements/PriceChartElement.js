@@ -16,6 +16,23 @@ import {
 } from "d3";
 import { AggregateData } from "../../reducers/data/Aggregate";
 
+/* Top- level variables for graph */
+const margin = { top: 10, right: 30, bottom: 30, left: 50 },
+  width = 460 - margin.left - margin.right,
+  height = 400 - margin.top - margin.bottom;
+
+/* Hold variable for graph */
+//dataChart
+
+// const svgWidth = 600;
+// const svgHeight = 400;
+// const margin = { top: 20, right: 20, bottom: 30, left: 50 };
+// const width = svgWidth - margin.left - margin.right;
+// const height = svgHeight - margin.top - margin.bottom;
+
+const x = d3.scaleLinear().range([0, width]);
+const y = d3.scaleLinear().range([height, 0]);
+
 class PriceChartElement extends Component {
   componentDidMount() {
     this.didLoad = false;
@@ -33,77 +50,104 @@ class PriceChartElement extends Component {
   createChart() {
     let dataset = this.props.orders;
 
-    const buyData = dataset.filter(function(data) {
-      return data.action === 1;
-    });
-
-    const sellData = dataset.filter(function(data) {
-      return data.action === 2;
-    });
-
     let svgCanvas = this.drawContainingBox(dataset);
 
-    this.drawChartData(buyData, sellData, dataset);
+    let myData = this.splitData(dataset);
+
+    this.drawChartData(myData[0], myData[1], dataset);
   }
 
   updateChart(data) {
-    const svgWidth = 600;
-    const svgHeight = 400;
-    const margin = { top: 20, right: 20, bottom: 30, left: 50 };
-    const width = svgWidth - margin.left - margin.right;
-    const height = svgHeight - margin.top - margin.bottom;
+    const line = d3
+      .line()
+      .x(function(d) {
+        return x(d.price);
+      })
+      .y(function(d) {
+        return y(d.quantity);
+      });
+    x.domain(
+      d3.extent(data, function(d) {
+        return d.price;
+      })
+    );
+    y.domain(
+      d3.extent(data, function(d) {
+        return d.quantity;
+      })
+    );
 
-    //Reset svg
-    let svg = "";
-    svg = d3
-      .select("svg")
-      .attr("id", "depthChart")
-      .attr("width", svgWidth)
-      .attr("height", svgHeight);
+    let myData = this.splitData(data);
+    let buyData = myData[0];
+    let sellData = myData[1];
 
-    const g = svg
-      .append("g")
-      .attr("id", "gItem")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    let newData = d3
+      .line()
+      .x(function(d) {
+        return d.price;
+      })
+      .y(function(d) {
+        return d.quantity;
+      });
+    let newBuyLine = newData(buyData);
+    let newSellLine = newData(sellData);
 
-    //Data Join
-    //Join new data with old elements
-    let buyData = g.selectAll("#buyData").data(data);
-    console.log("here!!!!!");
-    console.log(buyData);
-    console.log(data);
-    let sellData = g.selectAll("#sellData").data(data);
+    console.log("testing123");
+    console.log(newBuyLine);
 
-    // UPDATE
-    // Update old elements as needed.
-    buyData.attr("class", "update");
-    sellData.attr("class", "update");
+    //d3.select("path#buySection").attr("d", newBuyLine);
+    //d3.select("path#sellSection").attr("d", newSellLine);
 
-    // g.append("path")
-    //   .datum(buyData)
-    //   .attr("id", "buySection")
-    //   .attr("fill", "#B22222")
-    //   .attr("stroke", "red")
-    //   .attr("stroke-linejoin", "round")
-    //   .attr("stroke-linecap", "round")
-    //   .attr("stroke-width", 1.5)
-    //   .attr(
-    //     "d",
-    //     d3
-    //       .area()
-    //       .x(function(d) {
-    //         return x(d.price);
-    //       })
-    //       .y0(y(100))
-    //       .y1(function(d) {
-    //         return y(d.quantity);
-    //       })
-    //   );
+    //d3.select("path#sellSection").remove();
+    d3.select("path#buySection").remove();
 
-    // EXIT
-    // Remove old elements as needed.
-    buyData.exit().remove();
-    sellData.exit().remove();
+    let g = select("g");
+
+    g.append("path")
+      .datum(buyData)
+      .attr("id", "buySection")
+      .attr("class", "line")
+      .attr("fill", "#B22222")
+      .attr("stroke", "red")
+      .attr("stroke-linejoin", "round")
+      .attr("stroke-linecap", "round")
+      .attr("stroke-width", 1.5)
+      .attr(
+        "d",
+        d3
+          .area()
+          .x(function(d) {
+            return x(d.price);
+          })
+          .y0(y(100))
+          .y1(function(d) {
+            return y(d.quantity);
+          })
+      );
+
+    g.append("path")
+      .datum(sellData)
+      .attr("id", "sellSection")
+      .attr("class", "line")
+      .attr("fill", "#B22222")
+      .attr("stroke", "red")
+      .attr("stroke-linejoin", "round")
+      .attr("stroke-linecap", "round")
+      .attr("stroke-width", 1.5)
+      .attr(
+        "d",
+        d3
+          .area()
+          .x(function(d) {
+            return x(d.price);
+          })
+          .y0(y(100))
+          .y1(function(d) {
+            return y(d.quantity);
+          })
+      );
+
+    //d3.select("path#sellSection").attr("d", sellData);
   }
 
   drawContainingBox() {
@@ -184,6 +228,7 @@ class PriceChartElement extends Component {
     g.append("path")
       .datum(buyData)
       .attr("id", "buySection")
+      .attr("class", "line")
       .attr("fill", "#B22222")
       .attr("stroke", "red")
       .attr("stroke-linejoin", "round")
@@ -205,6 +250,7 @@ class PriceChartElement extends Component {
     g.append("path")
       .datum(sellData)
       .attr("id", "sellSection")
+      .attr("class", "line")
       .attr("fill", "#cce5df")
       .attr("stroke", "green")
       .attr("stroke-linejoin", "round")
@@ -245,7 +291,7 @@ class PriceChartElement extends Component {
       .attr("x1", width)
       .attr("x2", width);
 
-    // place the value at the intersection
+    // place the quantity at the intersection
     focus
       .append("text")
       .attr("class", "y1")
@@ -260,7 +306,7 @@ class PriceChartElement extends Component {
       .attr("dx", 8)
       .attr("dy", "-.3em");
 
-    // place the date at the intersection
+    // place the price at the intersection
     focus
       .append("text")
       .attr("class", "y3")
@@ -366,12 +412,28 @@ class PriceChartElement extends Component {
     }
   }
 
+  splitData(dataset) {
+    let buyData = dataset.filter(function(data) {
+      return data.action === 1;
+    });
+
+    let sellData = dataset.filter(function(data) {
+      return data.action === 2;
+    });
+
+    return [buyData, sellData];
+  }
+
   render() {
-    return (
-      <div>
-        <svg id="depthChart" width="1000" height="500" />
-      </div>
-    );
+    let svg = d3
+      .select("#dataChart")
+      .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    return <div id="dataChart" />;
   }
 }
 
