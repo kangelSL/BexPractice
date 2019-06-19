@@ -98,9 +98,10 @@ class PriceChartElement extends Component {
     //d3.select("path#buySection").attr("d", newBuyLine);
     //d3.select("path#sellSection").attr("d", newSellLine);
 
-    //d3.select("path#sellSection").remove();
+    d3.select("path#sellSection").remove();
     d3.select("path#buySection").remove();
 
+    let svg = select("svg");
     let g = select("g");
 
     g.append("path")
@@ -130,7 +131,7 @@ class PriceChartElement extends Component {
       .attr("id", "sellSection")
       .attr("class", "line")
       .attr("fill", "#B22222")
-      .attr("stroke", "red")
+      .attr("stroke", "green")
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
       .attr("stroke-width", 1.5)
