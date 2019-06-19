@@ -17,26 +17,35 @@ import {
 import { AggregateData } from "../../reducers/data/Aggregate";
 
 // Set the dimensions of the canvas / graph
-var margin = { top: 30, right: 20, bottom: 30, left: 50 },
+let margin = { top: 30, right: 20, bottom: 30, left: 50 },
   width = 600 - margin.left - margin.right,
   height = 270 - margin.top - margin.bottom;
 
 // Set the ranges
-var x = d3.scaleLinear().range([0, width]);
-var y = d3.scaleLinear().range([height, 0]);
+let x = d3.scaleLinear().range([0, width]);
+let y = d3.scaleLinear().range([height, 0]);
 
 // Define the axes
-var xAxis = d3.axisBottom(x).ticks(5);
-
-var yAxis = d3.axisLeft(y).ticks(5);
+let xAxis = d3.axisBottom(x).ticks(5);
+let yAxis = d3.axisLeft(y).ticks(5);
 
 // Define the line
-var valueline = d3
-  .line()
+let valueline = d3
+  .area()
   .x(function(d) {
     return x(d.price);
   })
   .y(function(d) {
+    return y(d.quantity);
+  });
+
+let valueline2 = d3
+  .area()
+  .x(function(d) {
+    return x(d.price);
+  })
+  .y0(y(0))
+  .y1(function(d) {
     return y(d.quantity);
   });
 
@@ -171,7 +180,9 @@ class SimplePriceChartElement extends Component {
       })
     );
     y.domain([
-      0,
+      d3.min(data, function(d) {
+        return d.quantity;
+      }),
       d3.max(data, function(d) {
         return d.quantity;
       })
@@ -180,16 +191,20 @@ class SimplePriceChartElement extends Component {
     // Select the section we want to apply our changes to
     let svg = d3.select("#option").transition();
 
+    let minYValue = d3.min(data, function(d) {
+      return d.quantity;
+    });
+
     // Update area lines
     svg
       .select("#buySection")
       .duration(750)
-      .attr("d", valueline(buyData));
+      .attr("d", valueline2(buyData, minYValue));
 
     svg
       .select("#sellSection")
       .duration(750)
-      .attr("d", valueline(sellData));
+      .attr("d", valueline2(sellData, minYValue));
 
     // Change the X axis
     svg
