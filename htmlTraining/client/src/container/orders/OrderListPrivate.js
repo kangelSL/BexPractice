@@ -20,9 +20,7 @@ class OrderListPrivate extends Component {
     return (
       <div>
         <HeaderLayout title="Account Orders" style="header-small" />
-        <p className="tableRowStyling">
-          Current account: Account{this.props.currentAccountId}
-        </p>
+        <p>Current account: Account{this.props.currentAccountId}</p>
         <OrderTableElement orders={this.getListItems()} />
       </div>
     );

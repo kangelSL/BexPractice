@@ -1,21 +1,22 @@
 @import "variables";
 
-//App.js
-.header {
+%shared {
   font-family: $font-family;
+  text-align: center;
+}
+
+.header {
+  @extend %shared;
   color: $font-standard-colour;
   font-size: $heading-size;
   color: $heading-colour;
   border: $heading-border;
   padding: 5px;
-  text-align: center;
 }
 
 //App js and orderlistprivate
 .header-small {
-  font-family: $font-family;
   color: $subheading-colour;
   padding: 2px;
-  text-align: center;
   font-size: 15px;
 }

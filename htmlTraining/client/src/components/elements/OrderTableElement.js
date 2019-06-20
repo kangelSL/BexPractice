@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "../styles/App.scss";
 import "../styles/Table.scss";
 
 const OrderTableElement = ({ orders }) => (
@@ -12,7 +13,10 @@ const OrderTableElement = ({ orders }) => (
       </thead>
       <tbody>
         {orders.map((order, index) => (
-          <tr key={index}>
+          <tr
+            key={index}
+            className={order.action === 1 ? "buyText" : "sellText"}
+          >
             <th scope="col"> {order.quantity} </th>
             <th scope="col"> {order.price} </th>
           </tr>

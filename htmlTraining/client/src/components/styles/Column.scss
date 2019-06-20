@@ -1,23 +1,27 @@
 @import "variables";
 
-.col {
+%col {
   margin: $column-margin;
   float: left;
   padding: 2px;
 }
 
 .colSidebar {
+  @extend %col;
   width: 15%;
 }
 
 .colLeft {
+  @extend %col;
   width: 20%;
 }
 
 .colCentre {
+  @extend %col;
   width: 40%;
 }
 
 .colRight {
+  @extend %col;
   width: 20%;
 }

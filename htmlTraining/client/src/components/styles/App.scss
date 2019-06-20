@@ -1,16 +1,14 @@
-//order form and orderformelement and accountdropdownelements
-.formElement {
-  width: 50% !important;
-  margin-left: 100px;
-  margin-bottom: 5px;
+@import "variables";
+
+.buyText {
+  color: red;
 }
 
-//orderform and order form element
-.buttonStyling {
-  background-color: white !important;
-  margin-left: 150px;
+.sellText {
+  color: green;
 }
 
 p {
   text-align: center;
+  color: DodgerBlue;
 }

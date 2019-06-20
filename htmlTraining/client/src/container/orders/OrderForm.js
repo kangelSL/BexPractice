@@ -1,13 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { postData } from "../../actions/index";
-import {
-  Form,
-  Button,
-  FormControl,
-  FormGroup,
-  Dropdown
-} from "react-bootstrap";
+import { Form, Button, FormControl, FormGroup } from "react-bootstrap";
+import "../../components/styles/Button.scss";
+import "../../components/styles/Form.scss";
 
 class ConnectedForm extends Component {
   constructor(props) {
@@ -50,39 +46,43 @@ class ConnectedForm extends Component {
 
   render() {
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <FormGroup>
-          <FormControl
-            type="quantity"
-            id="quantity"
-            placeholder="Enter quantity"
-            className="formElement"
-            value={this.quantity}
-            onChange={this.handleChange}
-          />
-          <FormControl
-            type="price"
-            id="price"
-            placeholder="Enter price"
-            className="formElement"
-            value={this.price}
-            onChange={this.handleChange}
-          />
-          <select
-            className="formElement"
-            id="action"
-            value={this.action}
-            onChange={this.handleChange}
-          >
-            <option value="1">Buy</option>
-            <option value="2">Sell</option>
-          </select>
-        </FormGroup>
+      <div className="formBody">
+        <Form onSubmit={this.handleSubmit}>
+          <FormGroup>
+            <FormControl
+              type="quantity"
+              id="quantity"
+              placeholder="Enter quantity"
+              className="formElement"
+              value={this.quantity}
+              onChange={this.handleChange}
+            />
+            <FormControl
+              type="price"
+              id="price"
+              placeholder="Enter price"
+              className="formElement"
+              value={this.price}
+              onChange={this.handleChange}
+            />
+            <div className="formBody">
+              <select
+                className="formElement"
+                id="action"
+                value={this.action}
+                onChange={this.handleChange}
+              >
+                <option value="1">Buy</option>
+                <option value="2">Sell</option>
+              </select>
+            </div>
+          </FormGroup>
 
-        <Button className="buttonStyling" type="submit">
-          Submit
-        </Button>
-      </Form>
+          <Button className="buttonStyling" type="submit">
+            Submit
+          </Button>
+        </Form>
+      </div>
     );
   }
 }

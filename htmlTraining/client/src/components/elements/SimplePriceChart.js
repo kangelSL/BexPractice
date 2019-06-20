@@ -1,19 +1,7 @@
 import "../styles/App.scss";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { selection } from "d3-selection";
 import * as d3 from "d3";
-import {
-  select,
-  csv,
-  scaleLinear,
-  scaleTime,
-  extent,
-  axisLeft,
-  axisBottom,
-  line,
-  curveBasis
-} from "d3";
 import { AggregateData } from "../../reducers/data/Aggregate";
 
 // Set the dimensions of the canvas / graph

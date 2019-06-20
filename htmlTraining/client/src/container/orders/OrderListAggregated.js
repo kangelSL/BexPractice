@@ -35,28 +35,31 @@ class OrderListAggregated extends Component {
 
   render() {
     return (
-      <div>
-        <p>Buy</p>
-        <table className="tableRowStyling">
-          <thead>
-            <tr>
-              <th scope="col">Price</th>
-              <th scope="col">Quantity</th>
-            </tr>
-          </thead>
-          <tbody>{this.getBuyListItems()}</tbody>
-        </table>
-
-        <p>Sell</p>
-        <table className="tableRowStyling">
-          <thead>
-            <tr>
-              <th scope="col">Price</th>
-              <th scope="col">Quantity</th>
-            </tr>
-          </thead>
-          <tbody>{this.getSellListItems()}</tbody>
-        </table>
+      <div class="row">
+        <div class="column">
+          <p>Buy</p>
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+              </tr>
+            </thead>
+            <tbody>{this.getBuyListItems()}</tbody>
+          </table>
+        </div>
+        <div class="column">
+          <p>Sell</p>
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+              </tr>
+            </thead>
+            <tbody>{this.getSellListItems()}</tbody>
+          </table>
+        </div>
       </div>
     );
   }

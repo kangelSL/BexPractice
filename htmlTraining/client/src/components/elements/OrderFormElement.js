@@ -6,6 +6,8 @@ import {
   FormGroup,
   Dropdown
 } from "react-bootstrap";
+import "../styles/Button.scss";
+import "../styles/Form.scss";
 
 //Needs further work to refactor order form
 
@@ -34,7 +36,7 @@ export default class OrderFormElement extends Component {
     const { quantity, price, action, currentAccountId } = this.props;
     return (
       <div>
-        <Form>
+        <Form className="formBody">
           <FormGroup>
             <FormControl
               type="quantity"
