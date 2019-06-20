@@ -1,11 +1,12 @@
 import "../styles/App.scss";
+import "../styles/Headers.scss";
 import React, { Component } from "react";
 
 class HeaderLayout extends Component {
   render() {
     return (
-      <div className={this.props.style}>
-        <p>{this.props.title}</p>
+      <div>
+        <p className={this.props.style}>{this.props.title}</p>
       </div>
     );
   }

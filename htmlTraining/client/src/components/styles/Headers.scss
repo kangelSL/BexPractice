@@ -1,0 +1,21 @@
+@import "variables";
+
+//App.js
+.header {
+  font-family: $font-family;
+  color: $font-standard-colour;
+  font-size: $heading-size;
+  color: $heading-colour;
+  border: $heading-border;
+  padding: 5px;
+  text-align: center;
+}
+
+//App js and orderlistprivate
+.header-small {
+  font-family: $font-family;
+  color: $subheading-colour;
+  padding: 2px;
+  text-align: center;
+  font-size: 15px;
+}

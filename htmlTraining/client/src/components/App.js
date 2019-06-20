@@ -8,30 +8,31 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import $ from "jquery";
 import Popper from "popper.js";
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import "./styles/Column.scss";
 
 function App() {
   return (
     <div className="App">
       <div className="container-fluid">
-        <div className="col1">
+        <div className="col colSidebar">
           <HeaderLayout title="Bitcoin Exchange | BEX" style="header" />
           <HeaderLayout title="BTC_GBP" style="header-small" />
 
           <SidebarColumnLayout />
         </div>
 
-        <div className="col2">
+        <div className="col colLeft">
           <HeaderLayout title="Trading" style="header" />
           <HeaderLayout title="Order Books" style="header-small" />
           <LeftColumnLayout />
         </div>
 
-        <div className="col3">
+        <div className="col colCentre">
           <HeaderLayout title="Price Charts" style="header" />
           <CentralColumnLayout />
         </div>
 
-        <div className="col4">
+        <div className="col colRight">
           <HeaderLayout title="Trade History" style="header" />
           <HeaderLayout title="Recents" style="header-small" />
           <RightColumnLayout />

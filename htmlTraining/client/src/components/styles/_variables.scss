@@ -1,8 +1,26 @@
 // Universal style variables
+$font-family: Helvetica, sans-serif;
+$font-standard-size: 0.875em; //Use ems for text resizing
+$font-standard-colour: white;
+
+// Heading styles
+$heading-size: 20px;
+$heading-border: 1px solid DodgerBlue;
+$heading-colour: DodgerBlue;
+
+//Subheading styles
+$subheading-size: 18px;
+$subheading-colour: rgb(132, 187, 241);
+
+// Column styles
+$column-margin: 10px;
+
 $font-stack: Helvetica, sans-serif;
 $heading-style: 16px bold white;
-$subheading-colour: 14px bold white;
 
 // Form variables
+$form-element-sizing: 50%;
 
 // Table variables
+
+//Graph styling
