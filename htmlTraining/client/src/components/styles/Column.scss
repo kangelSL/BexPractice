@@ -6,22 +6,31 @@
   padding: 2px;
 }
 
+%vertical {
+  border: 1px solid rgb(73, 73, 73);
+  border-radius: 25px;
+}
+
 .colSidebar {
   @extend %col;
+  @extend %vertical;
   width: 15%;
 }
 
 .colLeft {
   @extend %col;
+  @extend %vertical;
   width: 20%;
 }
 
 .colCentre {
   @extend %col;
+  @extend %vertical;
   width: 40%;
 }
 
 .colRight {
   @extend %col;
+  @extend %vertical;
   width: 20%;
 }

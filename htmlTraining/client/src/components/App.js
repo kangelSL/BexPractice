@@ -17,10 +17,8 @@ function App() {
         <div className="colSidebar">
           <HeaderLayout title="Bitcoin Exchange | BEX" style="header" />
           <HeaderLayout title="BTC_GBP" style="header-small" />
-
           <SidebarColumnLayout />
         </div>
-
         <div className="colLeft">
           <HeaderLayout title="Trading" style="header" />
           <HeaderLayout title="Order Books" style="header-small" />

@@ -7,11 +7,12 @@
 
 .header {
   @extend %shared;
-  color: $font-standard-colour;
   font-size: $heading-size;
-  color: $heading-colour;
+  color: black;
   border: $heading-border;
-  padding: 5px;
+  border-radius: 25px;
+  padding: 10px;
+  background-color: rgba(215, 215, 247, 0.849);
 }
 
 //App js and orderlistprivate
