@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+import "../styles/Table.scss";
 
 const OrderTableElement = ({ orders }) => (
   <div>
-    <table className="tableRowStyling">
+    <table>
       <thead>
         <tr>
           <th scope="col">Quantity</th>
