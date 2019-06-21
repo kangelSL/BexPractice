@@ -26,10 +26,15 @@ function rootReducer(state = initialState, action) {
         ...state,
         orders: action.payload
       };
+    case "ORDERS_HISTORY_LOADED":
+      return {
+        ...state,
+        matchedOrders: action.payload
+      };
     case "ACCOUNTS_LOADED":
       return {
         ...state,
-        accounts: action.payload.accounts
+        accounts: action.payload
       };
     case "UPDATE_ACCOUNT_ID":
       return {

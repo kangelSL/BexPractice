@@ -11,7 +11,6 @@ class OrderList extends Component {
 
   getTruncatedOrderBook() {
     if (typeof this.props.orders !== "undefined") {
-      console.log("here");
       return this.props.orders;
     } else {
       return [];
