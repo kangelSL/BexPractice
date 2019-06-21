@@ -1,5 +1,8 @@
 import axios from "axios";
 import { UPDATE_ACCOUNT_ID } from "../constants/action-types";
+import io from "socket.io-client";
+
+let socket = io("http://localhost:8080/test");
 
 export function updateAccountId(payload) {
   return { type: UPDATE_ACCOUNT_ID, payload };
@@ -11,12 +14,20 @@ export function updateForm(payload) {
 
 export function getOrders() {
   return function(dispatch) {
-    return fetch("http://localhost:3000/getOrders")
-      .then(response => response.json())
-      .then(json => {
-        dispatch({ type: "ORDERS_LOADED", payload: json });
-      });
+    return socket.emit("room", {}, function(myData) {
+      console.log("myData");
+      console.log(myData);
+      dispatch({ type: "ORDERS_LOADED", payload: myData });
+    });
   };
+
+  // return function(dispatch) {
+  //   return fetch("http://localhost:3000/getOrders")
+  //     .then(response => response.json())
+  //     .then(json => {
+  //       dispatch({ type: "ORDERS_LOADED", payload: json });
+  //     });
+  // };
 }
 
 export function getAccounts() {

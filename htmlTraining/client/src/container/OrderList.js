@@ -5,15 +5,16 @@ import OrderTableElement from "../components/elements/OrderTableElement";
 
 class OrderList extends Component {
   componentDidMount() {
-    // Call the API to get data
+    // Call websocket to get data
     this.props.getOrders();
   }
 
   getTruncatedOrderBook() {
     if (typeof this.props.orders !== "undefined") {
-      return this.props.orders.slice(1).slice(-20);
+      console.log("here");
+      return this.props.orders;
     } else {
-      return {};
+      return [];
     }
   }
 

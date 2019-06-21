@@ -24,7 +24,7 @@ function rootReducer(state = initialState, action) {
     case "ORDERS_LOADED":
       return {
         ...state,
-        orders: action.payload.orders
+        orders: action.payload
       };
     case "ACCOUNTS_LOADED":
       return {

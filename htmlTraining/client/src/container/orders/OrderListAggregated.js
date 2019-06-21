@@ -35,8 +35,8 @@ class OrderListAggregated extends Component {
 
   render() {
     return (
-      <div class="row">
-        <div class="column">
+      <div className="row">
+        <div className="column">
           <p>Buy</p>
           <table>
             <thead>
@@ -48,7 +48,7 @@ class OrderListAggregated extends Component {
             <tbody>{this.getBuyListItems()}</tbody>
           </table>
         </div>
-        <div class="column">
+        <div className="column">
           <p>Sell</p>
           <table>
             <thead>

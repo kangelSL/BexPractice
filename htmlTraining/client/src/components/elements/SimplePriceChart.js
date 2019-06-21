@@ -62,7 +62,7 @@ class SimplePriceChartElement extends Component {
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     // Get the data
-    let data = this.props.orders;
+    let data = this.props.orders ? this.props.orders : [];
 
     data.forEach(function(d) {
       d.quantity = +d.quantity;

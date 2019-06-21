@@ -1,9 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { getOrders } from "../../actions/index";
 import OrderTableElement from "../../components/elements/OrderTableElement";
 import HeaderLayout from "../../components/layout/HeaderLayout";
 
 class OrderListPrivate extends Component {
+  componentDidMount() {
+    // Call websocket to get data
+    this.props.getOrders();
+  }
+
   getListItems() {
     if (typeof this.props.orders !== "undefined") {
       let currentAccountId = this.props.currentAccountId;
@@ -12,7 +18,7 @@ class OrderListPrivate extends Component {
         return order.accountId == currentAccountId;
       });
     } else {
-      return {};
+      return [];
     }
   }
 
@@ -34,4 +40,13 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(OrderListPrivate);
+function mapDispatchToProps(dispatch) {
+  return {
+    getOrders: order => dispatch(getOrders(order))
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(OrderListPrivate);

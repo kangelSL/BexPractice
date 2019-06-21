@@ -1,0 +1,20 @@
+.colSidebar, .colLeft, .colCentre, .colRight {
+  margin: 10px;
+  float: left;
+  padding: 2px; }
+
+.colSidebar, .colLeft, .colCentre, .colRight {
+  border: 1px solid #494949;
+  border-radius: 26px; }
+
+.colSidebar {
+  width: 15%; }
+
+.colLeft {
+  width: 20%; }
+
+.colCentre {
+  width: 40%; }
+
+.colRight {
+  width: 20%; }

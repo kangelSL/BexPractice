@@ -12,6 +12,10 @@ const appRouter = function(app) {
     next();
   });
 
+  app.get("/", function(request, response) {
+    response.status(200).send();
+  });
+
   app.get("/getOrders", function(request, response) {
     const data = new Orders();
     response.status(200).send(data);
